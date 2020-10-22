@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using Mailjet.SimpleClient.Core.Exceptions;
+﻿using Mailjet.SimpleClient.Core.Exceptions;
 using Mailjet.SimpleClient.Core.Interfaces;
 using Mailjet.SimpleClient.Core.Models.Options;
+using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace Mailjet.SimpleClient.Core.Models.Requests
 {

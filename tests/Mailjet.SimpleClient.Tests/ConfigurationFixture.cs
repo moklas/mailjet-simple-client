@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using Mailjet.SimpleClient.Core.Interfaces;
+﻿using Mailjet.SimpleClient.Core.Interfaces;
 using Mailjet.SimpleClient.Core.Models.Options;
 using Newtonsoft.Json.Linq;
+using System;
+using System.IO;
 
 namespace Mailjet.SimpleClient.Tests
 {

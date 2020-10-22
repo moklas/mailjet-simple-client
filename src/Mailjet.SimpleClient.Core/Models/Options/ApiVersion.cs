@@ -2,6 +2,7 @@
 {
     public enum ApiVersion
     {
+        V3,
         V3_1,
         V4
     }
@@ -16,4 +17,8 @@
         V4 = ApiVersion.V4
     }
 
+    public enum ContactApiVersion
+    {
+        V3 = ApiVersion.V3
+    }
 }

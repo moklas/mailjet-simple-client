@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Mailjet.SimpleClient.Core.Interfaces;
+using Mailjet.SimpleClient.Core.Models.Responses;
+using Mailjet.SimpleClient.Logging;
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Mailjet.SimpleClient.Core.Interfaces;
-using Mailjet.SimpleClient.Core.Models.Responses;
-using Mailjet.SimpleClient.Logging;
-using Newtonsoft.Json.Linq;
 
 namespace Mailjet.SimpleClient
 {
@@ -29,11 +28,12 @@ namespace Mailjet.SimpleClient
             req.Headers.Authorization = request.AuthenticationHeaderValue;
             req.Headers.UserAgent.ParseAdd(request.UserAgent);
             Log.Info($"Sending {request.HttpMethod} request to {request.Uri}");
-            Log.Debug($"Request body: {Environment.NewLine} {request.RequestBody.ToString()}");
+            Log.Debug($"Request body: {Environment.NewLine} {request.RequestBody}");
             var res = await HttpClient.SendAsync(req);
-            Log.Info($"Request was successful: " +res.IsSuccessStatusCode);
-            var content = await res.Content.ReadAsStringAsync();
-            Log.Debug("Response body: "+content);
+            Log.Info($"Request was successful: " + res.IsSuccessStatusCode);
+
+            var content = res.Content != null ? await res.Content.ReadAsStringAsync() : string.Empty;
+            Log.Debug("Response body: " + content);
             return new ResponseBase(content, (int)res.StatusCode, res.IsSuccessStatusCode);
         }
 

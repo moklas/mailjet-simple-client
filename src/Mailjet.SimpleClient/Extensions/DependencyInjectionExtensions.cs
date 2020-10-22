@@ -23,6 +23,7 @@ namespace Mailjet.SimpleClient.Extensions
             serviceCollection.AddMailjetSimpleClient();
             serviceCollection.AddMailjetEmailClient();
             serviceCollection.AddMailjetSmsClient();
+            serviceCollection.AddMailjetContactClient();
             Log.Debug("Added Mailjet clients to dependency injection");
         }
 
@@ -88,6 +89,26 @@ namespace Mailjet.SimpleClient.Extensions
         public static void AddMailjetSimpleClient<T>(this IServiceCollection serviceCollection, ServiceLifetime serviceLifetime = ServiceLifetime.Transient) where T : class, IMailjetSimpleClient
         {
             serviceCollection.Add(new ServiceDescriptor(typeof(IMailjetSimpleClient), typeof(T), serviceLifetime));
+        }
+
+        /// <summary>
+        /// Add default MailjetContactClient as a service
+        /// </summary>
+        /// <param name="serviceCollection">Service collection</param>
+        /// <param name="serviceLifetime">Lifetime of the client, defaults to Transient</param>
+        private static void AddMailjetContactClient(this IServiceCollection serviceCollection, ServiceLifetime serviceLifetime = ServiceLifetime.Transient)
+        {
+            serviceCollection.AddMailjetContactClient<MailjetContactClient>(serviceLifetime);
+        }
+        /// <summary>
+        /// Add your own implementation of a client. Note that this does not add <c>IMailjetContactOptions</c> as a service as it makes no assumption on your implementation
+        /// </summary>
+        /// <typeparam name="T">An IMailjetContactClient</typeparam>
+        /// <param name="serviceCollection">Service collection</param>
+        /// <param name="serviceLifetime">Lifetime of your client, defaults to Transient</param>
+        public static void AddMailjetContactClient<T>(this IServiceCollection serviceCollection, ServiceLifetime serviceLifetime = ServiceLifetime.Transient) where T : class, IMailjetContactClient
+        {
+            serviceCollection.Add(new ServiceDescriptor(typeof(IMailjetContactClient), typeof(T), serviceLifetime));
         }
     }
 }
